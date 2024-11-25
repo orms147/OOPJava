@@ -1,4 +1,5 @@
-package AIMSProject.src;
+package hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.disc.DigitalVideoDisc.DigitalVideoDisc;
 
 //import java.util.Arrays;
 //import java.time.LocalDate;
@@ -30,35 +31,6 @@ public class Cart {
     System.out.println("The cart is almost full");
   }
   
-  public void addDigitalVideoDisc(DigitalVideoDisc[] discList ) {
-    for(DigitalVideoDisc disc : discList) {
-      if(qtyOrdered < MAX_NUMBERS_ORDERED) {
-        itemsOdered[qtyOrdered] = disc;
-        qtyOrdered++;
-        System.out.println("The disc has been added");
-      }
-      else {
-        System.out.println("The cart is almost full");
-      }
-    }
-  }
-
-  public void addDigitalVideoDisc(DigitalVideoDisc dvd1,DigitalVideoDisc dvd2){
-    if(qtyOrdered +2 <= MAX_NUMBERS_ORDERED){
-      itemsOdered[qtyOrdered] = dvd1;
-      qtyOrdered++;
-      itemsOdered[qtyOrdered] = dvd2;
-      qtyOrdered++;
-      System.out.println("Both disc has been added");
-    } else if (qtyOrdered +1 <= MAX_NUMBERS_ORDERED) {
-      itemsOdered[qtyOrdered] = dvd1;
-      qtyOrdered++;
-      System.out.println("The first disc has been added");
-    } else {
-      System.out.println("The cart is almost full");
-    }
-  }
-
   public void removeDigitalVideoDisc (DigitalVideoDisc disc) {
     for(int i  = 0; i < MAX_NUMBERS_ORDERED; i++) {
       if(itemsOdered[i] == disc) {
