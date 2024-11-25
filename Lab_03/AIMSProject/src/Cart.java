@@ -96,5 +96,47 @@ public class Cart {
     System.out.println("Total cost: " + totalCost());
     System.out.println("***************************************************");
   }
+  public void searchById(int id) {
+    boolean found = false;
+    for (int i = 0; i < qtyOrdered; i++) {
+      if (itemsOdered[i].getId() == id) {
+        System.out.println(itemsOdered[i].toString());
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      System.out.println("No match found for ID: " + id);
+    }
+  }
 
+  public void searchByTitle(String title) {
+    boolean found = false;
+    for (int i = 0; i < qtyOrdered; i++) {
+      if (isMatch(itemsOdered[i], title)) {
+        System.out.println(itemsOdered[i].toString());
+        found = true;
+      }
+    }
+    if (!found) {
+      System.out.println("No match found for title: " + title);
+    }
+  }
+
+  private boolean isMatch(DigitalVideoDisc disc, String title) {
+    String[] discWords = disc.getTitle().toLowerCase().split("\\s+");
+    String[] searchWords = title.toLowerCase().split("\\s+");
+    
+    for (String searchWord : searchWords) {
+      boolean wordFound = false;
+      for (String discWord : discWords) {
+        if (discWord.equals(searchWord)) {
+          wordFound = true;
+          break;
+        }
+      }
+      if (!wordFound) return false;
+    }
+    return true;
+  }
 }
