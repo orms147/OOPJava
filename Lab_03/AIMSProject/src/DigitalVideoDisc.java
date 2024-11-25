@@ -68,5 +68,12 @@ public class DigitalVideoDisc {
     //this.addDate = LocalDate.now();
   }
 
+  public String toString() {
+    return "DVD - " + this.getTitle() + " - " + 
+                      this.getCategory() + " - " + 
+                      this.getDirector() + " - " + 
+                      this.getLength() + ": " + 
+                      this.getCost() + " $";
+  }
   
 }

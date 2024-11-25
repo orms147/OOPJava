@@ -18,6 +18,13 @@ public class CartTest {
         
         // Test print cart
         cart.printCart();
-      
+        // Test search by ID
+        cart.searchById(1);
+        cart.searchById(5); // Should show "No match found"
+        
+        // Test search by title
+        cart.searchByTitle("Star Wars");
+        cart.searchByTitle("Star"); // Should find "Star Wars"
+        cart.searchByTitle("Batman"); // Should show "No match found"
     }
 }
