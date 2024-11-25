@@ -1,4 +1,5 @@
-package AIMSProject.src;
+package hust.soict.dsai.aims.store.Store;
+import hust.soict.dsai.aims.disc.DigitalVideoDisc.DigitalVideoDisc;
 
 public class Store {
     private DigitalVideoDisc itemsInStore[] = new DigitalVideoDisc[100]; // Khai báo mảng chứa DVD
