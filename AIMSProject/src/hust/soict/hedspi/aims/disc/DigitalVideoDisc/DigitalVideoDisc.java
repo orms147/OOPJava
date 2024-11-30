@@ -1,4 +1,4 @@
-package AIMSProject.scr.hust.soict.dsai.aims.disc;
+package hust.soict.hedspi.aims.disc.DigitalVideoDisc;
 
 //import java.time.LocalDate;
 
