@@ -1,5 +1,5 @@
-package hust.soict.dsai.aims.store.Store;
-import hust.soict.dsai.aims.disc.DigitalVideoDisc.DigitalVideoDisc;
+package hust.soict.hedspi.aims.store.Store;
+import hust.soict.hedspi.aims.disc.DigitalVideoDisc.DigitalVideoDisc;
 
 public class Store {
     private DigitalVideoDisc itemsInStore[] = new DigitalVideoDisc[100]; // Khai báo mảng chứa DVD

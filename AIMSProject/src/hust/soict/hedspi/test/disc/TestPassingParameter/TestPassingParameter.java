@@ -1,5 +1,5 @@
-package hust.soict.dsai.test.disc.TestPassingParameter;
-import hust.soict.dsai.aims.disc.DigitalVideoDisc.DigitalVideoDisc;
+package hust.soict.hedspi.test.disc.TestPassingParameter;
+import hust.soict.hedspi.aims.disc.DigitalVideoDisc.*;
 
 public class TestPassingParameter {
 
