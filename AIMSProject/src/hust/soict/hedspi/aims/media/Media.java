@@ -33,6 +33,9 @@ public abstract class Media {
     public String getTitle() {
         return title;
     }
+    public void setTitle(String title) {
+      this.title = title;
+    }
 
     public String getCategory() {
         return category;
@@ -50,4 +53,6 @@ public abstract class Media {
         }
         return false;
     }
+
+    
 } 
