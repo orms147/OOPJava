@@ -7,6 +7,7 @@ public abstract class Media {
     private String title;
     private String category;
     private float cost;
+    protected static int nbDigitalVideoDiscs = 0;
 
     public static final Comparator<Media> COMPARE_BY_TITLE_COST = 
         Comparator.comparing(Media::getTitle)
@@ -54,5 +55,15 @@ public abstract class Media {
         return false;
     }
 
-    
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 } 

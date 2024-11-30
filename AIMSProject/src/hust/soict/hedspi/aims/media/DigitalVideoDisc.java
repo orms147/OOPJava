@@ -10,12 +10,37 @@ public class DigitalVideoDisc extends Disc implements Playable {
         super(id, title, category, cost, length, director);
     }
     
-    public DigitalVideoDisc(String title, String category, float cost) {
-        this(0, title, category, cost, 0, null);
+    public DigitalVideoDisc(String title, String category, double cost) {
+        super();
+        setTitle(title);
+        setCategory(category);
+        setCost((float)cost);
+        setId(++nbDigitalVideoDiscs);
     }
     
     public DigitalVideoDisc(String title) {
-        this(0, title, null, 0, 0, null);
+        super();
+        setTitle(title);
+        setId(++nbDigitalVideoDiscs);
+    }
+    
+    public DigitalVideoDisc(String title, String category, String director, double cost) {
+        super();
+        setTitle(title);
+        setCategory(category);
+        setDirector(director);
+        setCost((float)cost);
+        setId(++nbDigitalVideoDiscs);
+    }
+    
+    public DigitalVideoDisc(String title, String category, String director, int length, double cost) {
+        super();
+        setTitle(title);
+        setCategory(category);
+        setDirector(director);
+        setLength(length);
+        setCost((float)cost);
+        setId(++nbDigitalVideoDiscs);
     }
     
     @Override
