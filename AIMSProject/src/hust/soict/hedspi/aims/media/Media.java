@@ -10,12 +10,10 @@ public abstract class Media {
     protected static int nbDigitalVideoDiscs = 0;
 
     public static final Comparator<Media> COMPARE_BY_TITLE_COST = 
-        Comparator.comparing(Media::getTitle)
-                  .thenComparing(Media::getCost, Comparator.reverseOrder());
+        new MediaComparatorByTitleCost();
                   
     public static final Comparator<Media> COMPARE_BY_COST_TITLE = 
-        Comparator.comparing(Media::getCost, Comparator.reverseOrder())
-                  .thenComparing(Media::getTitle);
+        new MediaComparatorByCostTitle();
 
     public Media() {
     }
@@ -26,6 +24,8 @@ public abstract class Media {
         this.category = category;
         this.cost = cost;
     }
+
+    public abstract void play();
 
     public int getId() {
         return id;

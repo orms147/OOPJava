@@ -29,4 +29,10 @@ public class Disc extends Media {
     public void setLength(int length) {
         this.length = length;
     }
+
+    @Override
+    public void play() {
+        System.out.println("Playing disc: " + this.getTitle());
+        System.out.println("Disc length: " + this.getLength());
+    }
 } 

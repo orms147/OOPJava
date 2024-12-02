@@ -4,18 +4,29 @@ import hust.soict.hedspi.aims.media.Media;
 import java.util.ArrayList;
 
 public class Store {
-    private ArrayList<Media> itemsInStore = new ArrayList<>();
+    private ArrayList<Media> mediaList = new ArrayList<>();
 
     public void addMedia(Media media) {
-        itemsInStore.add(media);
-        System.out.println("Media has been added to the store.");
+        mediaList.add(media);
     }
 
     public void removeMedia(Media media) {
-        if (itemsInStore.remove(media)) {
-            System.out.println("Media has been removed from the store.");
-        } else {
-            System.out.println("Media not found in the store.");
+        mediaList.remove(media);
+    }
+
+    public Media search(String title) {
+        for (Media media : mediaList) {
+            if (media.getTitle().equalsIgnoreCase(title)) {
+                return media; // Trả về media nếu tìm thấy
+            }
+        }
+        return null; // Trả về null nếu không tìm thấy
+    }
+
+    public void print() {
+        System.out.println("Danh sách media trong cửa hàng:");
+        for (Media media : mediaList) {
+            System.out.println(media.toString());
         }
     }
 } 
