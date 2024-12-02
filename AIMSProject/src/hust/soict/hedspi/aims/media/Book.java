@@ -11,7 +11,11 @@ public class Book extends Media {
     }
     
     public Book(int id, String title, String category, float cost) {
-        super(id, title, category, cost);
+        super();
+        setId(id);
+        setTitle(title);
+        setCategory(category);
+        setCost(cost);
     }
 
     public List<String> getAuthors() {
@@ -28,5 +32,10 @@ public class Book extends Media {
         if (authors.contains(authorName)) {
             authors.remove(authorName);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Book - " + getTitle() + " - " + getCategory() + ": " + getCost() + " $";
     }
 } 
