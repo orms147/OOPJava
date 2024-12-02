@@ -4,6 +4,8 @@ package hust.soict.hedspi.aims.cart.Cart;
 //import java.time.LocalDate;
 import java.util.ArrayList;
 import hust.soict.hedspi.aims.media.Media;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Cart {
     private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
@@ -23,6 +25,21 @@ public class Cart {
         } else {
             System.out.println("The media was not found");
         }
+    }
+
+    public void empty() {
+        itemsOrdered.clear();
+        System.out.println("The cart has been emptied.");
+    }
+
+    public void sortMediaByTitle() {
+        Collections.sort(itemsOrdered, Comparator.comparing(Media::getTitle));
+        System.out.println("Media sorted by title.");
+    }
+
+    public void sortMediaByCost() {
+        Collections.sort(itemsOrdered, Comparator.comparing(Media::getCost));
+        System.out.println("Media sorted by cost.");
     }
 
     public float totalCost() {
@@ -85,5 +102,21 @@ public class Cart {
             if (!wordFound) return false;
         }
         return true;
+    }
+
+    public void print() {
+        System.out.println("Danh sách media trong giỏ hàng:");
+        for (Media media : itemsOrdered) {
+            System.out.println(media.toString());
+        }
+    }
+
+    public Media search(String title) {
+        for (Media media : itemsOrdered) {
+            if (media.getTitle().equalsIgnoreCase(title)) {
+                return media; // Trả về media nếu tìm thấy
+            }
+        }
+        return null; // Trả về null nếu không tìm thấy
     }
 }

@@ -14,6 +14,18 @@ public class Book extends Media {
         super(id, title, category, cost);
     }
 
+    public Book(String title, String category, float cost) {
+        super();
+        setTitle(title);
+        setCategory(category);
+        setCost(cost);
+    }
+
+    @Override
+    public void play() {
+        System.out.println("Reading book: " + this.getTitle());
+    }
+
     public List<String> getAuthors() {
         return authors;
     }
