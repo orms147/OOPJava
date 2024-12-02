@@ -58,7 +58,7 @@ public class AimsApp {
         store.addMedia(new Book("A Living Remedy: A Memoir", "Biography", 202.00f));
         store.addMedia(new Book("On the Origin of Time: Stephen Hawking's Final Theory", "Science", 120.00f));
 
-        CompactDisc cd1 = new CompactDisc("Adele - 30", "Music", "Adele", 1500.98f);
+        CompactDisc cd1 = new CompactDisc();
         cd1.addTrack(new Track("All Night Parking (interlude)", 161));
         cd1.addTrack(new Track("To Be Loved", 403));
         cd1.addTrack(new Track("Woman Like Me", 300));
@@ -364,7 +364,7 @@ public class AimsApp {
                 System.out.println("Enter CD cost: ");
                 Float cdCost = scanner.nextFloat();
                 scanner.nextLine();
-                CompactDisc newCD = new CompactDisc(cdTitle, cdCategory, cdArtist, cdCost);
+                CompactDisc newCD = new CompactDisc();
                 System.out.println("Do you want to add tracks to your CD? (1) Yes (0) No:");
                 int addTrack = scanner.nextInt();
                 scanner.nextLine();
