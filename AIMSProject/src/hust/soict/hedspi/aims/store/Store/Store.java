@@ -23,6 +23,10 @@ public class Store {
         return null; // Trả về null nếu không tìm thấy
     }
 
+    public ArrayList<Media> getItemsInStore() {
+        return mediaList;
+    }
+
     public void print() {
         System.out.println("Danh sách media trong cửa hàng:");
         for (Media media : mediaList) {
