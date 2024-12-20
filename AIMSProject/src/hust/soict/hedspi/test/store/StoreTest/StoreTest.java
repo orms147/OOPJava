@@ -5,12 +5,16 @@ import hust.soict.hedspi.aims.store.Store.*;
 public class StoreTest {
     public static void main(String[] args) {
         Store store = new Store();
-        DigitalVideoDisc dvd1 = new DigitalVideoDisc("Movie 1", "Action", 20.0);
-        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Movie 2", "Comedy", "John", 15.7);
+        DigitalVideoDisc dvd1 = new DigitalVideoDisc("Lion King", "Animation", "Roger Allers", 87, 19.95f);
+        store.addMedia(dvd1);
 
-        store.addMedia(dvd1); // Thêm DVD vào cửa hàng
-        store.addMedia(dvd2); // Thêm DVD vào cửa hàng
-        store.removeMedia(dvd1); // Xóa DVD khỏi cửa hàng
-        store.removeMedia(dvd2); // Xóa DVD khỏi cửa hàng
+        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star War", "Sci-fic", "Geogre Lucas", 87, 22.42f);
+        store.addMedia(dvd2);
+
+        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Alien", "Sci-fic", 14.2f);
+        store.addMedia(dvd3);
+        store.print();
+        store.removeMedia(dvd3);
+        store.print();
     }
 } 

@@ -1,54 +1,53 @@
 package hust.soict.hedspi.aims.media;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Book extends Media {
-    private List<String> authors = new ArrayList<String>();
-    
-    public Book() {
-        super();
+
+    private List<String> authors = new ArrayList<>();
+
+    // Constructor
+    public Book(String title) {
+        super(title);
     }
-    
-    public Book(int id, String title, String category, float cost) {
-        super(id, title, category, cost);
+
+    public Book(String title, String category) {
+        super(title, category);
     }
 
     public Book(String title, String category, float cost) {
-        super();
-        setTitle(title);
-        setCategory(category);
-        setCost(cost);
+        super(title, category, cost);
     }
 
-    @Override
-    public void play() {
-        System.out.println("Reading book: " + this.getTitle());
-    }
-
-    public List<String> getAuthors() {
-        return authors;
-    }
-
+    // Add and remove author
     public void addAuthor(String authorName) {
         if (!authors.contains(authorName)) {
             authors.add(authorName);
+            System.out.println("Author " + authorName + " has been added.");
+        } else {
+            System.out.println("Author " + authorName + " already exists.");
         }
     }
 
     public void removeAuthor(String authorName) {
         if (authors.contains(authorName)) {
             authors.remove(authorName);
+            System.out.println("Author " + authorName + " has been removed.");
+        } else {
+            System.out.println("Author " + authorName + " does not exist.");
         }
+    }
+
+    // Get authors
+    public List<String> getAuthors() {
+        return authors;
     }
 
     @Override
     public String toString() {
-        return "Book{" +
-                "title='" + getTitle() + '\'' +
-                ", category='" + getCategory() + '\'' +
-                ", cost=" + getCost() +
-                ", authors=" + authors +
-                '}';
+        return this.getId() + " - Book: " + this.getTitle() +
+                " - Category: " + this.getCategory() +
+                " - Cost: " + this.getCost() + "$" +
+                " - Authors: " + String.join(", ", authors);
     }
-} 
+}
