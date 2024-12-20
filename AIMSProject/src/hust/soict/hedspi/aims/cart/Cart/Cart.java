@@ -1,122 +1,192 @@
 package hust.soict.hedspi.aims.cart.Cart;
 
-//import java.util.Arrays;
-//import java.time.LocalDate;
-import java.util.ArrayList;
-import hust.soict.hedspi.aims.media.Media;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.naming.LimitExceededException;
+
+import hust.soict.hedspi.aims.media.Media;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Cart {
-    private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
-    
-    public void addMedia(Media media) {
-        if (itemsOrdered.size() < 20) {
-            itemsOrdered.add(media);
-            System.out.println("The media has been added");
-        } else {
-            System.out.println("The cart is almost full");
-        }
-    }
-    
-    public void removeMedia(Media media) {
-        if (itemsOrdered.remove(media)) {
-            System.out.println("The media has been removed");
-        } else {
-            System.out.println("The media was not found");
-        }
-    }
 
-    public void empty() {
-        itemsOrdered.clear();
-        System.out.println("The cart has been emptied.");
-    }
+  public static final int MAX_NUMBERS_ORDERED = 20;
+  private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
+  public int qtyOrdered = 0;
 
-    public void sortMediaByTitle() {
-        Collections.sort(itemsOrdered, Comparator.comparing(Media::getTitle));
-        System.out.println("Media sorted by title.");
-    }
-
-    public void sortMediaByCost() {
-        Collections.sort(itemsOrdered, Comparator.comparing(Media::getCost));
-        System.out.println("Media sorted by cost.");
-    }
-
-    public float totalCost() {
-      float total = 0;
-      for (Media media : itemsOrdered) {
-          total += media.getCost();
-      }
-      return total;
+  public ObservableList<Media> getItemsOrdered() {
+    return itemsOrdered;
   }
 
-    public void printCart() {
-        System.out.println("***********************CART***********************");
-        System.out.println("Ordered Items:");
-        for (int i = 0; i < itemsOrdered.size(); i++) {
-            System.out.println((i + 1) + ". " + itemsOrdered.get(i).toString());
-        }
-        System.out.println("Total cost: " + totalCost());
-        System.out.println("***************************************************");
+  // Add media to the cart
+  public String addMedia(Media media) throws LimitExceededException {
+    if (itemsOrdered.size() >= MAX_NUMBERS_ORDERED) {
+      throw new LimitExceededException("ERROR: The number of media has reached its limit");
+    } else if (itemsOrdered.contains(media)) {
+      return media.getTitle() + " is already in the cart!";
+    } else {
+      qtyOrdered += 1;
+      itemsOrdered.add(media);
+      return media.getTitle() + " has been added!";
     }
+  }
 
-    public void searchById(int id) {
-        boolean found = false;
-        for (Media media : itemsOrdered) {
-            if (media.getId() == id) {
-                System.out.println(media.toString());
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            System.out.println("No match found for ID: " + id);
-        }
+  // Remove media from the cart
+  public void removeMedia(Media media) {
+    if (itemsOrdered.size() == 0) {
+      System.out.println("Nothing to remove!");
+    } else {
+      if (itemsOrdered.remove(media)) {
+        System.out.println(media.getTitle() + " has been removed from the cart.");
+        qtyOrdered -= 1;
+      } else {
+        System.out.println("Media not found in cart!");
+      }
     }
+  }
 
-    public void searchByTitle(String title) {
-        boolean found = false;
-        for (Media media : itemsOrdered) {
-            if (isMatch(media, title)) {
-                System.out.println(media.toString());
-                found = true;
-            }
-        }
-        if (!found) {
-            System.out.println("No match found for title: " + title);
-        }
+  // Search media by title
+  public void searchByTitle(String keyword) {
+    boolean matchFound = false;
+    for (Media media : itemsOrdered) {
+      if (media.isMatch(keyword)) {
+        System.out.println("Found " + media);
+        matchFound = true;
+      }
     }
+    if (!matchFound) {
+      System.out.println("Sorry, no media were found with \"" + keyword + "\" in the title!");
+    }
+  }
 
-    private boolean isMatch(Media media, String title) {
-        String[] mediaWords = media.getTitle().toLowerCase().split("\\s+");
-        String[] searchWords = title.toLowerCase().split("\\s+");
-        
-        for (String searchWord : searchWords) {
-            boolean wordFound = false;
-            for (String mediaWord : mediaWords) {
-                if (mediaWord.equals(searchWord)) {
-                    wordFound = true;
-                    break;
-                }
-            }
-            if (!wordFound) return false;
-        }
-        return true;
+  // Search media by category
+  public void searchByCategory(String category) {
+    boolean found = false;
+    for (Media media : itemsOrdered) {
+      if (media.getCategory().equalsIgnoreCase(category)) {
+        System.out.println("Found " + media);
+        found = true;
+      }
     }
+    if (!found) {
+      System.out.println("Sorry, no media matching the \"" + category + "\" category were found!");
+    }
+  }
 
-    public void print() {
-        System.out.println("Danh sách media trong giỏ hàng:");
-        for (Media media : itemsOrdered) {
-            System.out.println(media.toString());
-        }
+  // Search media by price range
+  public void searchByPrice(float maxCost) {
+    boolean matchFound = false;
+    for (Media media : itemsOrdered) {
+      if (media.getCost() <= maxCost) {
+        System.out.println("Found " + media);
+        matchFound = true;
+      }
     }
+    if (!matchFound) {
+      System.out.println("Sorry, no media were found that match the maximum cost provided!");
+    }
+  }
 
-    public Media search(String title) {
-        for (Media media : itemsOrdered) {
-            if (media.getTitle().equalsIgnoreCase(title)) {
-                return media; // Trả về media nếu tìm thấy
-            }
-        }
-        return null; // Trả về null nếu không tìm thấy
+  public void searchByPrice(float minCost, float maxCost) {
+    boolean matchFound = false;
+    for (Media media : itemsOrdered) {
+      if (media.getCost() >= minCost && media.getCost() <= maxCost) {
+        System.out.println("Found " + media);
+        matchFound = true;
+      }
     }
+    if (!matchFound) {
+      System.out
+          .println("Sorry, no media were found that match the cost range between your specified minimum and maximum!");
+    }
+  }
+
+  // Search media by ID
+  public void searchByID(int id) {
+    boolean found = false;
+    for (Media media : itemsOrdered) {
+      if (media.getId() == id) {
+        System.out.println("Found " + media);
+        found = true;
+      }
+    }
+    if (!found) {
+      System.out.println("Sorry, no media were found that match the ID provided!");
+    }
+  }
+
+  // Calculate total cost of the cart
+  public float totalCost() {
+    float totalCost = 0;
+    for (Media media : itemsOrdered) {
+      totalCost += media.getCost();
+    }
+    return Math.round(totalCost * 100.0f) / 100.0f;
+  }
+
+  // Print the cart
+  public void print() {
+    System.out.println("***********************CART***********************");
+    System.out.println("Ordered Items:");
+    for (Media media : itemsOrdered) {
+      System.out.println(media);
+    }
+    System.out.println("Total items: " + qtyOrdered);
+    System.out.println("Total cost: " + totalCost());
+    System.out.println("***************************************************");
+  }
+
+  // Empty the cart
+  public void empty() {
+    if (itemsOrdered.size() == 0) {
+      System.out.println("Nothing to remove!");
+    } else {
+      qtyOrdered = 0;
+      itemsOrdered.clear();
+      System.out.println("Order created.");
+      System.out.println("Now your current cart will be empty!");
+      System.out.println();
+    }
+  }
+
+  // Place an order
+  public String placeOrder() {
+    if (itemsOrdered.size() == 0) {
+      return "Your cart is empty!";
+    } else {
+      qtyOrdered = 0;
+      itemsOrdered.clear();
+      return "Order created!\nNow your cart will be empty!";
+    }
+  }
+
+  // Sort media in the cart by title
+  public void sortMediaByTitle() {
+    Collections.sort((List<Media>) itemsOrdered, Media.COMPARE_BY_TITLE_COST);
+    Iterator<Media> iterator = itemsOrdered.iterator();
+    while (iterator.hasNext()) {
+      System.out.println(iterator.next().toString());
+    }
+  }
+
+  // Sort media in the cart by cost
+  public void sortMediaByCost() {
+    Collections.sort((List<Media>) itemsOrdered, Media.COMPARE_BY_COST_TITLE);
+    Iterator<Media> iterator = itemsOrdered.iterator();
+    while (iterator.hasNext()) {
+      System.out.println(iterator.next().toString());
+    }
+  }
+
+  public Media searchToRemove(String title) {
+    for (Media media : itemsOrdered) {
+      if (media.getTitle().equalsIgnoreCase(title)) {
+        return media;
+      }
+    }
+    return null;
+
+  }
 }
